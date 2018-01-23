@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import {Tooltip,OverlayTrigger} from 'react-bootstrap';
 import Checkbox from 'elements/CustomCheckbox/CustomCheckbox.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
+let _this;
+const tasks_title = [
+    'Sign contract for "What are conference organizers afraid of?"',
+    'Lines From Great Russian Literature? Or E-mails From My Boss?',
+    'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroi',
+    'Create 4 Invisible User Experiences you Never Knew About',
+    'Read "Following makes Medium better"',
+    'Unfollow 5 enemies from twitter2'
+];
 
 export class Tasks extends Component{
     handleCheckbox = event => {
@@ -11,20 +20,30 @@ export class Tasks extends Component{
             [target.name]: target.checked
         });
     };
+
+    constructor(){
+        super();
+        _this=this;
+
+
+    }
+
+    //
+
+    componentWillMount()
+    {
+        this.setState({ taskstitle: tasks_title });
+
+    }
     render(){
+        console.log("is render"+this.state.taskstitle);
+
         const edit = (<Tooltip id="edit_tooltip">Edit Task</Tooltip>);
         const remove = (<Tooltip id="remove_tooltip">Remove</Tooltip>);
-        const tasks_title = [
-            'Sign contract for "What are conference organizers afraid of?"',
-            'Lines From Great Russian Literature? Or E-mails From My Boss?',
-            'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroi',
-            'Create 4 Invisible User Experiences you Never Knew About',
-            'Read "Following makes Medium better"',
-            'Unfollow 5 enemies from twitter'
-        ];
+
         var tasks = [];
         var number;
-        for (var i = 0; i < tasks_title.length; i++) {
+        for (var i = 0; i < this.state.taskstitle.length; i++) {
             number = "checkbox"+i;
             tasks.push(
                 <tr key={i}>
@@ -34,7 +53,7 @@ export class Tasks extends Component{
                             isChecked={i === 1 || i === 2 ? true:false}
                         />
                     </td>
-                    <td>{tasks_title[i]}</td>
+                    <td>{this.state.taskstitle[i]}</td>
                     <td className="td-actions text-right">
                         <OverlayTrigger placement="top" overlay={edit}>
                             <Button

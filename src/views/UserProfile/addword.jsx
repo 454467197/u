@@ -1,101 +1,61 @@
 import React, { Component } from 'react';
-import {
-    Grid, Row, Col
+import {Button,
+   Col,
 
 } from 'react-bootstrap';
 
 import {Card} from 'components/Card/Card.jsx';
 import {FormInputs} from 'components/FormInputs/FormInputs.jsx';
 import {UserCard} from 'components/UserCard/UserCard.jsx';
-import Button from 'elements/CustomButton/CustomButton.jsx';
-import Tasks from 'components/Tasks/Tasks.jsx'
+//import Button from 'elements/CustomButton/CustomButton.jsx';
 
+import avatar from "assets/img/faces/face-3.jpg";
 
-
-class UserProfile extends Component {
-
-    cansubmit(){
-       fetch("127.0.0.1/task").then((res)=>{
-            if(res.ok){
-                alert(res.body)
-            }
-
-       });
-    }
-
+class Addword extends Component {
     render() {
         return (
-            <div className="content">
-                <Grid fluid>
-                    <Row>
-                        <Col  md={4} >
+            <div>
+
+
+                        <Col  md={3} >
                             <Card
                                 title="add word"
                                 content={
-
-                                    <form onSubmit={this.cansubmit()}>
+                                    <form onSubmit="alert('test')">
                                         <FormInputs
                                             ncols = {["col-md-12" ]}
                                             proprieties = {[
-
+                                              
                                                 {
                                                 // label : "word",
                                                  type : "text",
                                                  bsClass : "form-control",
-                                                 placeholder : "word",
+                                                 placeholder : "word2",
+                                                    name:"s"
                                                  //defaultValue : "michael23"
                                                 }
                                             ]}
                                         />
-
-
+                                     
+                                      
                                         <Button
                                             bsStyle="info"
                                             pullRight
                                             fill
                                             type="submit"
 
-                                          >
-                                          Commit
+                                        >
+                                          Commit3
                                         </Button>
-
                                         <div className="clearfix"></div>
                                     </form>
-
-
                                 }
                             />
                         </Col>
-
-
-
-
-                    </Row>
-
-
-
-                    <Row>
-                        <Col  md={4} >
-                            <Card
-                                title="Task"
-                                content={
-                                    <Tasks/>
-
-                                }
-                            />
-                        </Col>
-
-
-
-
-                    </Row>
-
-
-                </Grid>
 
             </div>
         );
     }
 }
 
-export default UserProfile;
+export default Addword;

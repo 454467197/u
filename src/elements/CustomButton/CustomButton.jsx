@@ -30,6 +30,7 @@ CustomButton.propTypes = {
     pullRight: PropTypes.bool,
     block: PropTypes.bool,
     round: PropTypes.bool
+
 }
 
 export default CustomButton;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-    Grid, Row, Col
-
+    Grid, Row, Col,
+    FormGroup, ControlLabel, FormControl
 } from 'react-bootstrap';
 
 import {Card} from 'components/Card/Card.jsx';
@@ -10,34 +10,23 @@ import {UserCard} from 'components/UserCard/UserCard.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 import Tasks from 'components/Tasks/Tasks.jsx'
 
-
+import avatar from "assets/img/faces/face-3.jpg";
 
 class UserProfile extends Component {
-
-    cansubmit(){
-       fetch("127.0.0.1/task").then((res)=>{
-            if(res.ok){
-                alert(res.body)
-            }
-
-       });
-    }
-
     render() {
         return (
             <div className="content">
                 <Grid fluid>
                     <Row>
-                        <Col  md={4} >
+                        <Col  md={3} >
                             <Card
                                 title="add word"
                                 content={
-
-                                    <form onSubmit={this.cansubmit()}>
+                                    <form>
                                         <FormInputs
                                             ncols = {["col-md-12" ]}
                                             proprieties = {[
-
+                                              
                                                 {
                                                 // label : "word",
                                                  type : "text",
@@ -47,18 +36,16 @@ class UserProfile extends Component {
                                                 }
                                             ]}
                                         />
-
-
+                                     
+                                      
                                         <Button
                                             bsStyle="info"
                                             pullRight
                                             fill
                                             type="submit"
-
-                                          >
+                                        >
                                           Commit
                                         </Button>
-
                                         <div className="clearfix"></div>
                                     </form>
 
@@ -66,31 +53,8 @@ class UserProfile extends Component {
                                 }
                             />
                         </Col>
-
-
-
-
+                       
                     </Row>
-
-
-
-                    <Row>
-                        <Col  md={4} >
-                            <Card
-                                title="Task"
-                                content={
-                                    <Tasks/>
-
-                                }
-                            />
-                        </Col>
-
-
-
-
-                    </Row>
-
-
                 </Grid>
 
             </div>
