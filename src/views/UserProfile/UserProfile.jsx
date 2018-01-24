@@ -3,7 +3,8 @@ import {
     Grid, Row, Col
 
 } from 'react-bootstrap';
-
+import { observable, computed ,action,autorun} from "mobx";
+import {observer} from 'mobx-react';
 import {Card} from 'components/Card/Card.jsx';
 import {FormInputs} from 'components/FormInputs/FormInputs.jsx';
 import {UserCard} from 'components/UserCard/UserCard.jsx';
@@ -11,8 +12,28 @@ import Button from 'elements/CustomButton/CustomButton.jsx';
 import Tasks from 'components/Tasks/Tasks.jsx'
 
 
+const  value=observable(0);
 
+autorun(()=>{
+    console.log("value"+value.get());
+});
+
+
+
+@observer
 class UserProfile extends Component {
+    constructor(prop){
+        super(prop);
+
+    }
+    @observable price = 0;
+    @observable amount = 1;
+
+    @action
+    add(){
+        value.set(this.amount++);
+       console.log( this.amount," this.amount");
+    }
 
     cansubmit(){
        fetch("127.0.0.1/task").then((res)=>{
@@ -24,6 +45,9 @@ class UserProfile extends Component {
     }
 
     render() {
+
+        this.add();
+       // _this.amount++;
         return (
             <div className="content">
                 <Grid fluid>
@@ -33,7 +57,7 @@ class UserProfile extends Component {
                                 title="add word"
                                 content={
 
-                                    <form onSubmit={this.cansubmit()}>
+                                    <form >
                                         <FormInputs
                                             ncols = {["col-md-12" ]}
                                             proprieties = {[

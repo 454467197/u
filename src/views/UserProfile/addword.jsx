@@ -21,7 +21,7 @@ class Addword extends Component {
                             <Card
                                 title="add word"
                                 content={
-                                    <form onSubmit="alert('test')">
+                                    <form  >
                                         <FormInputs
                                             ncols = {["col-md-12" ]}
                                             proprieties = {[

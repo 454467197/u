@@ -1,6 +1,7 @@
 import Dashboard from 'views/Dashboard/Dashboard';
 import UserProfile from 'views/UserProfile/UserProfile';
-import addword from 'views/UserProfile/addword'
+import addword from 'views/UserProfile/addword';
+import add from 'views/UserProfile/add';
 import TableList from 'views/TableList/TableList';
 import Typography from 'views/Typography/Typography';
 import Icons from 'views/Icons/Icons';
@@ -12,6 +13,7 @@ const appRoutes = [
     { path: "/dashboard", name: "Dashboard", icon: "pe-7s-graph", component: Dashboard },
     { path: "/user", name: "User Profile", icon: "pe-7s-user", component: UserProfile },
     { path: "/addword", name: "addword", icon: "pe-7s-user", component: addword },
+    { path: "/add", name: "add", icon: "pe-7s-user", component: add },
     { path: "/table", name: "Table List", icon: "pe-7s-note2", component: TableList },
     { path: "/typography", name: "Typography", icon: "pe-7s-news-paper", component: Typography },
     { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons },
