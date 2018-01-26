@@ -7,29 +7,31 @@ import {observer} from 'mobx-react';
 
 //useStrict(false);
 
-const  value=observable(0);
 
 
-function inc() {
-    value.set(value.get()+1);
-}
 
-function dec() {
-    value.set(value.get()-1);
-}
 
-@observer
+
+//@observer
 class Add extends Component {
 
+    value=observable(0);
 
+    inc() {
+        this.value.set(this.value.get()+1);
+    }
+
+    dec() {
+        this.value.set(this.value.get()-1);
+    }
     render(){
        // console.log(1);
-        return <div> <h1>{value.get()}</h1>
+        return <div> <h1>{this.value.get()}</h1>
 
-            <button onClick={dec}>-</button>
-            <button onClick={inc}>+</button>
+            <button onClick={this.dec.bind(this)}>-</button>
+            <button onClick={this.inc.bind(this)}>+</button>
             </div>
     }
 }
 
-export default Add;
+export default observer(Add);
