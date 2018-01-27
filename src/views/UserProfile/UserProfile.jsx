@@ -11,8 +11,7 @@ import {UserCard} from 'components/UserCard/UserCard.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 import Tasks,{tasks_title} from 'components/Tasks/Tasks.jsx';
 import Emo from 'components/Emo/emo';
-import Add from  './add';
-import {postFetch} from "../../components/UT/UT";
+
 
 
 const  value=observable(0);
@@ -25,7 +24,9 @@ class UserProfile extends Component {
 
     input=null;
 
-    //@action
+    /**
+     * 添加单词的方法
+     */
     add(){
         let value=this.input.value;
         this.input.value="";
@@ -35,13 +36,9 @@ class UserProfile extends Component {
             return;
         }
 
-
-
-
-        console.log(value);
         let formData = new FormData();
         formData.append("text",value);
-       // formData.append("id",1);
+
 
 
 
@@ -51,9 +48,13 @@ class UserProfile extends Component {
             body : formData
         }).then(function(res){
             if(res.ok){
-                tasks_title.unshift(value);
-            console.log(res);
-            }else{
+                // insert 返回的是id
+                res.json().then((id)=> {
+                 tasks_title.unshift({"id":id,
+                     "text":value,"complete":"0"});
+
+                })
+           }else{
                 console.log('请求失败');
             }
         }, function(e){
@@ -64,20 +65,13 @@ class UserProfile extends Component {
        }
 
 
-    cansubmit(){
-       fetch("127.0.0.1/insert").then((res)=>{
-            if(res.ok){
-                alert(res.body)
-            }
-
-       });
-    }
 
     render() {
 
 
         return (
             <div className="content">
+
                 <Grid fluid>
                     <Row>
                         <Col  md={4} >

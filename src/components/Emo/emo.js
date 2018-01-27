@@ -27,8 +27,8 @@ class Emo extends  Component{
     }
 
     render() {
-        console.log("----this.showMoadl");
-        console.log(this.showModal.get());
+
+
 
 
         const popover = (

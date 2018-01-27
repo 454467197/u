@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Tooltip,OverlayTrigger} from 'react-bootstrap';
 import Checkbox from 'elements/CustomCheckbox/CustomCheckbox.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
-import {observable}  from 'mobx';
+import {observable,action}  from 'mobx';
 import  {observer} from 'mobx-react';
 observable( [
     'Sign contract for "What are conference organizers afraid of?"',
@@ -18,7 +18,7 @@ export  const tasks_title = observable([]);
 export class Tasks extends Component{
     handleCheckbox = event => {
         const target = event.target;
-        console.log(event.target);
+
         this.setState({
             [target.name]: target.checked
         });
@@ -31,13 +31,56 @@ export class Tasks extends Component{
             if (res.ok) {
                 res.json().then((data) => {
                    for(let i=0;i<data.length;i++){
+                       //添加下标便于删除
 
-                       tasks_title.unshift( data[i].text);
+                       tasks_title.unshift(data[i]);
+
+                       console.log(tasks_title);
                    }
                 })
             }
 
         });
+
+
+    }
+    @action
+    remove(id){
+        let index=-1;
+        // 循环变量数组找到下标和id
+       tasks_title.forEach((obj,dex)=>{
+            if(obj.id==id){
+                index=dex;
+                return;
+            }
+
+        });
+
+        if(index!=-1){
+            let formData = new FormData();
+            formData.append("id",id);
+
+            tasks_title.splice(index, 1);
+            fetch("http://127.0.0.1/delete", {
+                method : 'POST',
+                mode : 'cors',
+                body : formData
+            }).then(function(res){
+                if(res.ok){
+                    // insert 返回的是id
+                    res.json().then((id)=> {
+                        console.log(id);
+                    })
+                }else{
+                    console.log('请求失败');
+                }
+            }, function(e){
+                console.log('请求失败');
+                console.error(e);
+            })
+        }
+
+
 
 
     }
@@ -53,16 +96,17 @@ export class Tasks extends Component{
         var tasks = [];
         var number;
         for (var i = 0; i < tasks_title.length; i++) {
+
             number = "checkbox"+i;
             tasks.push(
                 <tr key={i}>
                     <td>
                         <Checkbox
                             number={number}
-                            isChecked={i === 1 || i === 2 ? true:false}
+                            isChecked={ tasks_title[i].complete=="1"? true:false}
                         />
                     </td>
-                    <td>{tasks_title[i]}</td>
+                    <td>{tasks_title[i].text}</td>
                     <td className="td-actions text-right">
                         <OverlayTrigger placement="top" overlay={edit}>
                             <Button
@@ -81,6 +125,7 @@ export class Tasks extends Component{
                                 simple
                                 type="button"
                                 bsSize="xs"
+                                onClick={this.remove.bind(this,tasks_title[i].id)}
                             >
                                 <i className="fa fa-times"></i>
                             </Button>
