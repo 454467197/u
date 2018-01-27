@@ -10,6 +10,7 @@ import {FormInputs} from 'components/FormInputs/FormInputs.jsx';
 import {UserCard} from 'components/UserCard/UserCard.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 import Tasks,{tasks_title} from 'components/Tasks/Tasks.jsx';
+import Emo from 'components/Emo/emo';
 import Add from  './add';
 import {postFetch} from "../../components/UT/UT";
 
@@ -40,7 +41,7 @@ class UserProfile extends Component {
         console.log(value);
         let formData = new FormData();
         formData.append("text",value);
-        formData.append("id",1);
+       // formData.append("id",1);
 
 
 
@@ -145,18 +146,8 @@ class UserProfile extends Component {
 
                     </Row>
 
+<Emo/>
 
-                    <Row>
-                        <Col  md={4} >
-                            <Add/>
-                            <Add/>
-                            <Add/>
-                        </Col>
-
-
-
-
-                    </Row>
 
 
                 </Grid>
